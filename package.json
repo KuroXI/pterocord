@@ -1,0 +1,24 @@
+{
+  "name": "pterocord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KuroXI/pterocord.git"
+  },
+  "keywords": [],
+  "author": "Kurooo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KuroXI/pterocord/issues"
+  },
+  "homepage": "https://github.com/KuroXI/pterocord#readme",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.30",
+    "chartjs-node-canvas": "^4.1.6",
+    "discord.js": "^14.6.0",
+    "node-fetch": "^2.6.7",
+    "websocket": "^1.0.34"
+  }
+}
