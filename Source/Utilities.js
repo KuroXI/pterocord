@@ -1,7 +1,7 @@
-module.exports.statusColor = (status) => {
-    if (status === 'starting') return 'Orange';
-    if (status === 'running') return 'Green';
-    return 'Red';
+module.exports.statusFormat = (status) => {
+    if (status === 'starting') return { color: 'Orange', state: 'Starting' };
+    if (status === 'running') return { color: 'Green', state: 'Online' };
+    return { color: 'Red', state: 'Offline' };
 }
 
 module.exports.networkFormat = (network, type = 'bps') => {
@@ -42,4 +42,24 @@ module.exports.uptimeFormat = (uptime) => {
     return time;
 }
 
-module.exports.textFormat = (text) => { return `\`\`\`yaml\n${text}\n\`\`\`` };
+module.exports.progressBar = (current, total) => {
+    const frmt = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 })
+    const divide = (current / total);
+
+    if (current > total) return {
+        bar: '▮'.repeat(20),
+        percentage: Number(frmt.format((divide) * 100))
+    };
+
+    const filled = '▮'.repeat(Math.round(20 * divide));
+    const empty = '▯'.repeat(20 - Math.round(20 * divide));
+
+    return {
+        bar: filled + empty,
+        percentage: Number(frmt.format((divide) * 100))
+    };
+}
+
+module.exports.textFormat = (text) => {
+    return `\`\`\`yaml\n${text}\n\`\`\``
+}
