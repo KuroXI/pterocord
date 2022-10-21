@@ -15,10 +15,7 @@
   },
   "homepage": "https://github.com/KuroXI/pterocord#readme",
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.30",
-    "chartjs-node-canvas": "^4.1.6",
     "discord.js": "^14.6.0",
-    "node-fetch": "^2.6.7",
-    "websocket": "^1.0.34"
+    "node-fetch": "^2.6.7"
   }
 }
