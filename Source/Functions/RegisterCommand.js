@@ -1,7 +1,7 @@
 const { Client, Routes, REST } = require('discord.js');
 const fs = require('fs');
 
-const { TOKEN } = require('../../config.json');
+const { TOKEN, GUILD } = require('../../config.json');
 
 /**
  * 
@@ -19,7 +19,7 @@ module.exports = async (client) => {
     const rest = new REST({ version: '10' }).setToken(TOKEN);
 
     try {
-        await rest.put(Routes.applicationGuildCommands(client.user.id, '869903804093583361'), { body: commands });
+        await rest.put(Routes.applicationGuildCommands(client.user.id, GUILD), { body: commands });
         console.log(`[SLASH COMMAND] : Successfully registered ${commands.length} command(s) in private server!`);
     } catch (error) {
         console.error(error);
