@@ -18,6 +18,8 @@ module.exports = (client, interaction) => {
         api: interaction.options.getString('api')
     };
 
+    client.accounts.set(interaction.member.id, interaction.options.getString('api'));
+
     fs.readFile('./Source/Data/account.json', (err, data) => {
         if (err) console.error(err);
 
