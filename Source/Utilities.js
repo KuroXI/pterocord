@@ -60,6 +60,6 @@ module.exports.progressBar = (current, total) => {
     };
 }
 
-module.exports.textFormat = (text) => {
-    return `\`\`\`yaml\n${text}\n\`\`\``
+module.exports.textFormat = (text, format = 'yaml') => {
+    return `\`\`\`${format}\n${text}\n\`\`\``
 }

@@ -31,6 +31,9 @@ client.on('interactionCreate', (interaction) => {
     
     if (interaction.isButton())
         return require('./Source/Functions/ButtonInteraction')(client, interaction);
+
+    if (interaction.isModalSubmit())
+        return require('./Source/Functions/ModalInteraction')(client, interaction)
 });
 
 client.on('ready', () => {

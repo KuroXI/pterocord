@@ -1,4 +1,4 @@
-const { Client, ButtonInteraction, EmbedBuilder } = require('discord.js');
+const { Client, ButtonInteraction, EmbedBuilder, ModalBuilder, TextInputBuilder } = require('discord.js');
 const API = require('../API');
 const Utils = require('../Utilities');
 const sleep = require('util').promisify(setTimeout);
@@ -9,20 +9,17 @@ const sleep = require('util').promisify(setTimeout);
  * @param {ButtonInteraction} interaction 
  */
 module.exports = async (client, interaction) => {
-    interaction.deferUpdate();
     const buttonID = interaction.customId.split('-');
 
     if (interaction.member.id !== buttonID[1]) return;
     const api = client.accounts.get(buttonID[1]);
 
-    const currentResource = await API.serverResource(api, buttonID[0]);
-    if (buttonID[2] === 'start' && currentResource.current_state === 'running') return;
-    if (buttonID[2] === 'restart' && currentResource.current_state !== 'running') return;
-    if (buttonID[2] === 'stop' && currentResource.current_state !== 'running') return;
-    if (buttonID[2] === 'kill' && currentResource.current_state !== 'running') return;
+    if (buttonID[2] === 'command') {
+        const modal = require('../Components/ModalBuilder')(buttonID[0], buttonID[1]);
+        return await interaction.showModal(modal);
+    }
 
     await API.powerState(api, buttonID[0], buttonID[2]);
-
     switch(buttonID[2]) {
         case 'start':
             interaction.editReply({ embeds: [new EmbedBuilder()
@@ -66,14 +63,14 @@ module.exports = async (client, interaction) => {
             ],
             components: [
                 await require('../Components/MenuBuilder')(client, buttonID[1]),
-                require('../Components/ButtonBuilder')(buttonID[0], buttonID[1])
+                require('../Components/ButtonBuilder')(buttonID[0], buttonID[1], resource)
             ]
         });
     }
 
     return interaction.editReply({
         embeds: [new EmbedBuilder()
-            .setColor('Red')
+            .setColor('Blurple')
             .setDescription('The server is either offline or starting. Please try again later.')
         ],
         components: [

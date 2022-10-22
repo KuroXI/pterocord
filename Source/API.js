@@ -42,3 +42,15 @@ module.exports.powerState = async (api, serverID, state = 'start') => {
         body: JSON.stringify({ "signal": state })
     })
 }
+
+module.exports.sendCommand = async (api, serverID, command) => {
+    await fetch(`${PRETO_URI}/api/client/servers/${serverID}/command`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${api}`
+        },
+        body: JSON.stringify({ "command": command })
+    })
+}

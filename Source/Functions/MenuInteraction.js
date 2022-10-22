@@ -22,6 +22,19 @@ module.exports = async (client, interaction) => {
         const api = client.accounts.get(menuID[1])
 
         const resource = await API.serverResource(api, interaction.values[0]);
+
+        if (resource.is_suspended) {
+            return interaction.editReply({
+                embeds: [new EmbedBuilder()
+                    .setColor('Red')
+                    .setDescription(`This server is suspended!`)
+                ],
+                components: [
+                    await require('../Components/MenuBuilder')(client, menuID[1])
+                ]
+            });
+        }
+
         const details = await API.serverDetails(api, interaction.values[0]);
 
         if (resource.current_state === 'running') {
@@ -35,7 +48,7 @@ module.exports = async (client, interaction) => {
                 ],
                 components: [
                     await require('../Components/MenuBuilder')(client, menuID[1]),
-                    require('../Components/ButtonBuilder')(interaction.values[0], menuID[1])
+                    require('../Components/ButtonBuilder')(interaction.values[0], menuID[1], resource)
                 ]
             });
         }
@@ -47,7 +60,7 @@ module.exports = async (client, interaction) => {
             ],
             components: [
                 await require('../Components/MenuBuilder')(client, menuID[1]),
-                require('../Components/ButtonBuilder')(interaction.values[0], menuID[1])
+                require('../Components/ButtonBuilder')(interaction.values[0], menuID[1], resource)
             ]
         });
     }
