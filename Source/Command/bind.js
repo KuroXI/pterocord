@@ -13,6 +13,16 @@ const fs = require('fs');
  * @param {CommandInteraction} interaction 
  */
 module.exports = (client, interaction) => {
+    if (client.accounts.get(interaction.member.id)) {
+        return interaction.reply({
+            embeds: [new EmbedBuilder()
+                .setColor('Green')
+                .setDescription(`You already bind your API Key`)
+            ],
+            ephemeral: true
+        })
+    }
+
     const accountData = {
         id: interaction.member.id,
         api: interaction.options.getString('api')
