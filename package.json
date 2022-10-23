@@ -1,7 +1,7 @@
 {
   "name": "pterocord",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.3.0",
+  "description": "Discord bot that checks the status of your server",
   "main": "index.js",
   "repository": {
     "type": "git",

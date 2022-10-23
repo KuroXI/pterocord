@@ -39,7 +39,7 @@ module.exports.powerState = async (api, serverID, state = 'start') => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${api}`
         },
-        body: JSON.stringify({ "signal": state })
+        body: JSON.stringify({ signal: state })
     })
 }
 
@@ -51,6 +51,30 @@ module.exports.sendCommand = async (api, serverID, command) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${api}`
         },
-        body: JSON.stringify({ "command": command })
+        body: JSON.stringify({ command: command })
+    })
+}
+
+module.exports.renameServer = async (api, serverID, name) => {
+    await fetch(`${PRETO_URI}/api/client/servers/${serverID}/settings/rename`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${api}`
+        },
+        body: JSON.stringify({ name: name })
+    })
+}
+
+module.exports.reinstallServer = async (api, serverID) => {
+    await fetch(`${PRETO_URI}/api/client/servers/${serverID}/settings/reinstall`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${api}`
+        },
+        body: null
     })
 }

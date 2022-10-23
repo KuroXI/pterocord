@@ -9,13 +9,25 @@ const sleep = require('util').promisify(setTimeout);
  * @param {ButtonInteraction} interaction 
  */
 module.exports = async (client, interaction) => {
+    if (!interaction.deferred) interaction.deferUpdate();
+
     const buttonID = interaction.customId.split('-');
 
     if (interaction.member.id !== buttonID[1]) return;
     const api = client.accounts.get(buttonID[1]);
 
-    if (buttonID[2] === 'command') {
-        const modal = require('../Components/ModalBuilder')(buttonID[0], buttonID[1]);
+    if (buttonID[2] === 'console') {
+        const modal = require('../Components/ModalBuilder').console(buttonID[0], buttonID[1]);
+        return await interaction.showModal(modal);
+    }
+
+    if (buttonID[2] === 'rename') {
+        const modal = require('../Components/ModalBuilder').rename(buttonID[0], buttonID[1]);
+        return await interaction.showModal(modal);
+    }
+
+    if (buttonID[2] === 'reinstall') {
+        const modal = require('../Components/ModalBuilder').reinstall(buttonID[0], buttonID[1]);
         return await interaction.showModal(modal);
     }
 
@@ -63,19 +75,20 @@ module.exports = async (client, interaction) => {
             ],
             components: [
                 await require('../Components/MenuBuilder')(client, buttonID[1]),
-                require('../Components/ButtonBuilder')(buttonID[0], buttonID[1], resource)
+                require('../Components/ButtonBuilder').power(buttonID[0], buttonID[1], resource),
+                require('../Components/ButtonBuilder').setting(buttonID[0], buttonID[1], resource)
             ]
         });
     }
 
     return interaction.editReply({
         embeds: [new EmbedBuilder()
-            .setColor('Blurple')
-            .setDescription('The server is either offline or starting. Please try again later.')
+            .setColor('Red')
+            .setDescription('The server is offline')
         ],
         components: [
             await require('../Components/MenuBuilder')(client, buttonID[1]),
-            require('../Components/ButtonBuilder')(buttonID[0], buttonID[1])
+            require('../Components/ButtonBuilder').power(buttonID[0], buttonID[1], resource)
         ]
     });
 }

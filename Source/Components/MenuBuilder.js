@@ -12,11 +12,10 @@ module.exports = async (client, memberID) => {
         });
     }
 
-    return new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder()
-            .setMaxValues(1)
-            .setCustomId(`servers-${memberID}`)
-            .setPlaceholder('Select a server')
-            .addOptions(serverList)
+    return new ActionRowBuilder().addComponents(new SelectMenuBuilder()
+        .setMaxValues(1)
+        .setCustomId(`servers-${memberID}`)
+        .setPlaceholder('Select a server')
+        .addOptions(serverList)
     )
 }

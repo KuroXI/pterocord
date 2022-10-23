@@ -20,11 +20,9 @@ module.exports = async (client, interaction) => {
             ephemeral: true
     });
 
-    return interaction.reply({
-        components: [
-            await require('../Components/MenuBuilder')(client, interaction.member.id)
-        ]
-    });
+    return interaction.reply({ components: [
+        await require('../Components/MenuBuilder')(client, interaction.member.id)
+    ]});
 }
 
 module.exports.config = {

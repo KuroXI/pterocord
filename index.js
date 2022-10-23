@@ -20,18 +20,15 @@ const applicationFiles = fs.readdirSync('./Source/Command/').filter((file) => fi
 applicationFiles.forEach((file) => {
     const applicationCommand = require(`./Source/Command/${file}`);
     client.slash.set(applicationCommand.config.data.name, applicationCommand);
-})
+});
 
 client.on('interactionCreate', (interaction) => {
     if (interaction.isCommand())
         return require('./Source/Functions/CommandInteraction')(client, interaction);
-
     if (interaction.isSelectMenu())
         return require('./Source/Functions/MenuInteraction')(client, interaction);
-    
     if (interaction.isButton())
         return require('./Source/Functions/ButtonInteraction')(client, interaction);
-
     if (interaction.isModalSubmit())
         return require('./Source/Functions/ModalInteraction')(client, interaction)
 });
