@@ -9,8 +9,6 @@ const sleep = require('util').promisify(setTimeout);
  * @param {ButtonInteraction} interaction 
  */
 module.exports = async (client, interaction) => {
-    if (!interaction.deferred) interaction.deferUpdate();
-
     const buttonID = interaction.customId.split('-');
 
     if (interaction.member.id !== buttonID[1]) return;
@@ -30,6 +28,8 @@ module.exports = async (client, interaction) => {
         const modal = require('../Components/ModalBuilder').reinstall(buttonID[0], buttonID[1]);
         return await interaction.showModal(modal);
     }
+
+    if (!interaction.deferred) interaction.deferUpdate();
 
     await API.powerState(api, buttonID[0], buttonID[2]);
     switch(buttonID[2]) {

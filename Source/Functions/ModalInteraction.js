@@ -54,7 +54,8 @@ module.exports = async (client, interaction) => {
                     new EmbedBuilder()
                         .setColor('Red')
                         .setDescription('Entered Value and Server ID does not match')
-                ]
+                ],
+                ephemeral: true
             })
         };
 
