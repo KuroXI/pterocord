@@ -46,7 +46,7 @@ git clone https://github.com/KuroXI/pterocord.git
 npm install
 ```
 3. Set up the TOKEN key and GUILD ID for your bot in the `config.json` file
-4.Run the bot:
+4. Run the bot:
 ```bash
 node index.js
 ```
